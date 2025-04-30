@@ -23,6 +23,18 @@ class ReglaValidacionCalisto:
     def validar(self, clave):
         if len(clave) <= 6:
             raise NoCumpleLongitudMinimaError("Debe tener más de 6 caracteres")
+        if not any(c.isdigit() for c in clave):
+            raise NoTieneNumeroError("Debe tener al menos un número")
+        if "calisto" not in clave.lower():
+            raise NoTienePalabraSecretaError("Debe contener la palabra 'calisto'")
+        for i in range(len(clave) - 6):
+            parte = clave[i:i + 7]
+            if parte.lower() == "calisto":
+                mayus = sum(1 for c in parte if c.isupper())
+                if 2 <= mayus < 7:
+                    return True
+        raise NoTienePalabraSecretaError(
+            "La palabra 'calisto' debe tener al menos 2 letras en mayúscula, pero no todas")
 
 
 
