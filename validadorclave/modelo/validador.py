@@ -1,5 +1,5 @@
 from validadorclave.modelo.errores import NoCumpleLongitudMinimaError, NoTieneLetraMayusculaError, \
-    NoTieneLetraMinusculaError, NoTieneNumeroError, NoTieneCaracterEspecialError
+    NoTieneLetraMinusculaError, NoTieneNumeroError, NoTieneCaracterEspecialError, NoTienePalabraSecretaError
 
 
 class ReglaValidacion:
@@ -18,8 +18,13 @@ class ReglaValidacionGanimedes:
         if not any(c in "@_#$%" for c in clave):
             raise NoTieneCaracterEspecialError("Debe tener al menos un carácter especial (@ _ # $ %)")
         return True
+
 class ReglaValidacionCalisto:
-    pass
+    def validar(self, clave):
+        if len(clave) <= 6:
+            raise NoCumpleLongitudMinimaError("Debe tener más de 6 caracteres")
+
+
 
 class Validador:
     pass
