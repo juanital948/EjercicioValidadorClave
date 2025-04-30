@@ -1,5 +1,6 @@
 from validadorclave.modelo.errores import NoCumpleLongitudMinimaError, NoTieneLetraMayusculaError, \
-    NoTieneLetraMinusculaError, NoTieneNumeroError, NoTieneCaracterEspecialError, NoTienePalabraSecretaError
+    NoTieneLetraMinusculaError, NoTieneNumeroError, NoTieneCaracterEspecialError, NoTienePalabraSecretaError, \
+    ValidadorError
 
 
 class ReglaValidacion:
@@ -38,5 +39,12 @@ class ReglaValidacionCalisto:
 
 
 
-class Validador:
-    pass
+ class Validador:
+        def _init_(self, regla):
+            self.regla = regla
+
+        def es_valida(self, clave):
+            try:
+                return self.regla.es_valida(clave)
+            except ValidadorError as e:
+                raise e
