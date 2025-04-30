@@ -10,7 +10,7 @@ from validadorclave.modelo.errores import (
 )
 
 class ReglaValidacion(ABC):
-    def _init_(self, longitud_esperada):
+    def __init__(self, longitud_esperada):
         self._longitud_esperada = longitud_esperada
 
     def _validar_longitud(self, clave):
@@ -31,8 +31,8 @@ class ReglaValidacion(ABC):
 
 
 class ReglaValidacionGanimedes(ReglaValidacion):
-    def _init_(self):
-        super()._init_(8)
+    def __init__(self):
+        super().__init__(8)
 
     def contiene_caracter_especial(self, clave):
         return any(c in "@_#$%" for c in clave)
@@ -52,8 +52,8 @@ class ReglaValidacionGanimedes(ReglaValidacion):
 
 
 class ReglaValidacionCalisto(ReglaValidacion):
-    def _init_(self):
-        super()._init_(6)
+    def __init__(self):
+        super().__init__(6)
 
     def contiene_calisto(self, clave):
         match = re.search(r"calisto", clave, re.IGNORECASE)
@@ -74,7 +74,7 @@ class ReglaValidacionCalisto(ReglaValidacion):
 
 
 class Validador:
-    def _init_(self, regla):
+    def __init__(self, regla):
         self.regla = regla
 
     def es_valida(self, clave):
