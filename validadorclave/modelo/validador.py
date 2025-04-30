@@ -56,11 +56,12 @@ class ReglaValidacionCalisto(ReglaValidacion):
         super().__init__(6)
 
     def contiene_calisto(self, clave):
-        match = re.search(r"calisto", clave, re.IGNORECASE)
-        if match:
+        matches = re.finditer(r"calisto", clave, re.IGNORECASE)
+        for match in matches:
             palabra = clave[match.start():match.end()]
             mayus = sum(1 for c in palabra if c.isupper())
-            return 2 <= mayus < len(palabra)
+            if 2 <= mayus < len(palabra):
+                return True
         return False
 
     def es_valida(self, clave):
